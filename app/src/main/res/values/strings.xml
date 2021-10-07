@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EduEdu</string>
+    <string name="title_activity_tela_dois">TelaDoisActivity</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_alunos">Alunos</string>
+    <string name="title_ajuda">Ajuda</string>
+    <string name="title_config">Configuração</string>
+    <string name="title_checkBox">Eu autorizo o EduEdu a coletar e processar os dados desse aluno conforme a politica de privacidade</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

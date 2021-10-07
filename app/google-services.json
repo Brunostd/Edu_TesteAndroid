@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "127275377490",
+    "project_id": "eduedu-e26c5",
+    "storage_bucket": "eduedu-e26c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127275377490:android:6e395a227f87ddd6a5908b",
+        "android_client_info": {
+          "package_name": "com.deny.eduedu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127275377490-4p2q7un3u9u01mosd5bhjpcmqekrbtve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deny.eduedu",
+            "certificate_hash": "a93dd328be732a6c02efac788adfe483be28d553"
+          }
+        },
+        {
+          "client_id": "127275377490-8upjablmc3v5t8qffrit52f8km4uf18a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFuo5Hz4YctD6pMpR78Ozjx9GrkmzjhjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127275377490-8upjablmc3v5t8qffrit52f8km4uf18a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

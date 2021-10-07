@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_aluno"
+    android:layout_width="147dp"
+    android:layout_height="171dp"
+    android:layout_margin="20dp"
+    android:elevation="2dp"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="40dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageAluno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:srcCompat="@drawable/avatar7" />
+
+        <TextView
+            android:id="@+id/textNomeAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textAnoAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 ano" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
