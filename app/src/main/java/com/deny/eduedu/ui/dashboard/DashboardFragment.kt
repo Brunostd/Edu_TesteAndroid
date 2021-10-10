@@ -35,13 +35,14 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import android.os.Build
 import androidx.fragment.app.FragmentTransaction
+import kotlinx.coroutines.runInterruptible
 
 
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
-    lateinit var firestoreDB : FirebaseFirestore
+    //lateinit var firestoreDB : FirebaseFirestore
     private var listAlunos: MutableList<Aluno> = ArrayList<Aluno>()
     var aluno: Aluno = Aluno()
     var alunosAdapter2: AlunosAdapter2 = AlunosAdapter2(listAlunos)
@@ -51,8 +52,7 @@ class DashboardFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        firestoreDB = FirebaseFirestore.getInstance()
-        consultar()
+        MyRunnable();
     }
 
     override fun onCreateView(
@@ -107,7 +107,34 @@ class DashboardFragment : Fragment() {
         return root
     }
 
-    fun consultar(){
+    class MyRunnable: Runnable{
+        private var listAlunos: MutableList<Aluno> = ArrayList<Aluno>()
+
+        override fun run() {
+            var autenticacao: FirebaseAuth = FirebaseAuth.getInstance()
+            var id: String = Base64Custom.codificarBase64(autenticacao.currentUser?.getEmail())
+            var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+            lateinit var firestoreDB : FirebaseFirestore
+            firestoreDB = FirebaseFirestore.getInstance()
+
+
+            firestoreDB.collection("cadastro").get().addOnCompleteListener(OnCompleteListener {
+                for (dataObject in it.getResult()!!.documents){
+                    var note = dataObject.toObject(Aluno::class.java)
+
+                    if (note!!.id.equals(id)) {
+                        note!!.id = dataObject.id
+
+                        var p: Aluno = Aluno(nome = note!!.nome, anoEscolar = note!!.anoEscolar)
+                        this.listAlunos.add(p)
+                    }
+                }
+            })
+
+        }
+    }
+
+    /*fun consultar(){
 
         var autenticacao: FirebaseAuth = FirebaseAuth.getInstance()
         var id: String = Base64Custom.codificarBase64(autenticacao.currentUser?.getEmail())
@@ -125,7 +152,7 @@ class DashboardFragment : Fragment() {
                 }
             }
         })
-    }
+    }*/
 
     fun recuperarEdicao(){
         setFragmentResultListener("requestKey"){requestKey, bundle ->
