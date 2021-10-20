@@ -35,13 +35,15 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import android.os.Build
 import androidx.fragment.app.FragmentTransaction
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
-    lateinit var firestoreDB : FirebaseFirestore
+    var firestoreDB : FirebaseFirestore = FirebaseFirestore.getInstance()
     private var listAlunos: MutableList<Aluno> = ArrayList<Aluno>()
     var aluno: Aluno = Aluno()
     var alunosAdapter2: AlunosAdapter2 = AlunosAdapter2(listAlunos)
@@ -51,8 +53,7 @@ class DashboardFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        firestoreDB = FirebaseFirestore.getInstance()
-        consultar()
+        coroutine()
     }
 
     override fun onCreateView(
@@ -66,8 +67,6 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.recyclerAluno.adapter = AlunosAdapter2(listAlunos)
-        binding.recyclerAluno.layoutManager = GridLayoutManager(context, 2)
         var recyclerView: RecyclerView = binding.recyclerAluno
 
         recuperarEdicao()
@@ -107,6 +106,12 @@ class DashboardFragment : Fragment() {
         return root
     }
 
+    fun coroutine() = runBlocking {
+        launch {
+            consultar()
+        }
+    }
+
     fun consultar(){
 
         var autenticacao: FirebaseAuth = FirebaseAuth.getInstance()
@@ -122,6 +127,9 @@ class DashboardFragment : Fragment() {
 
                     var p: Aluno = Aluno(nome = note!!.nome, anoEscolar = note!!.anoEscolar)
                     this.listAlunos.add(p)
+
+                    binding.recyclerAluno.adapter = AlunosAdapter2(listAlunos)
+                    binding.recyclerAluno.layoutManager = GridLayoutManager(context, 2)
                 }
             }
         })
