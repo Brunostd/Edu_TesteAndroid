@@ -1,9 +1,5 @@
 package com.deny.eduedu.ui.editarAluno
 
-import android.content.Intent
-import android.content.Intent.getIntent
-import android.content.Intent.getIntentOld
-import android.icu.number.IntegerWidth
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,15 +15,12 @@ import androidx.navigation.Navigation
 import com.deny.eduedu.R
 import com.deny.eduedu.databinding.EditarAlunoFragmentBinding
 import com.deny.eduedu.helper.Base64Custom
-import com.deny.eduedu.model.Aluno
-import com.deny.eduedu.ui.dashboard.DashboardFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -83,7 +76,7 @@ class EditarAlunoFragment : Fragment() {
                     setFragmentResult("requestKey2", bundleOf("bundleKey2" to result2))
 
 
-                    //Editar o nome do aluno
+                    //Alterar o nome do aluno
                     var userDetail: MutableMap<String, Any> = HashMap()
                     userDetail.put("nome", binding.editTextEditarAluno.text.toString())
 
@@ -118,8 +111,7 @@ class EditarAlunoFragment : Fragment() {
                             }
                         })
 
-
-                    //Editar o ano escolar do aluno
+                    //Alterar o ano escolar do aluno
                     var userDetail2: MutableMap<String, Any> = HashMap()
                     userDetail2.put("anoEscolar", auxRecebeAnoEscolar)
 
@@ -155,11 +147,9 @@ class EditarAlunoFragment : Fragment() {
                             }
                         })
 
-                    //Caso de tudo certo
-                    //Aqui é utilizado o coroutine para abir a tela de alunos
-                    //Com os alunos atualizado
-                    coroutineAbrirTelaAlunos(root)
-
+                    //Aqui se tudo deu certo o coroutine vai fazer um navigation para a tela alunos
+                    //Com a mesma tela atualizada
+                    coroutineVoltarTelaAlunos(root)
                 } else {
                     Toast.makeText(root.context, "Você não digitou um nome ou não escolheu nenhum ano escolar", Toast.LENGTH_LONG).show()
                 }
@@ -171,17 +161,17 @@ class EditarAlunoFragment : Fragment() {
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    fun coroutineAbrirTelaAlunos(view: View) = runBlocking {
+    fun coroutineVoltarTelaAlunos(view: View) = runBlocking {
         launch {
-            //delay(3000L)
+            delay(3000L)
             Navigation.findNavController(view)
                 .navigate(R.id.action_editarAlunoFragment_to_navigation_dashboard)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun recuperarEnvio(){
