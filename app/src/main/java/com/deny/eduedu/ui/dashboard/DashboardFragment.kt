@@ -54,7 +54,7 @@ class DashboardFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        consultar()
+        coroutine()
     }
 
     override fun onCreateView(
