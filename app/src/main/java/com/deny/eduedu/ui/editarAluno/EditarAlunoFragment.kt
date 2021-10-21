@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.deny.eduedu.R
 import com.deny.eduedu.databinding.EditarAlunoFragmentBinding
 import com.deny.eduedu.helper.Base64Custom
@@ -22,9 +23,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.google.firebase.storage.ktx.storageMetadata
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.net.URL
 
 class EditarAlunoFragment : Fragment() {
 
@@ -36,6 +42,8 @@ class EditarAlunoFragment : Fragment() {
 
     var auxNome: String = ""
     var auxAnoEscolar: String = ""
+
+    val storage = Firebase.storage
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -65,6 +73,22 @@ class EditarAlunoFragment : Fragment() {
 
         recuperarEnvio()
 
+        binding.imageViewEditar.setOnClickListener( View.OnClickListener {
+            val storageRef = storage.reference
+            val avatarRef = storageRef.child("images/zig.png")
+                .downloadUrl.addOnSuccessListener {
+                    /*UTILIZANDO O PICASSO PARA ALTERAÇÃO DA IMAGEM
+                Picasso.get().load(it).into(binding.imageViewEditar)
+                     */
+
+                    // E AGORA UTILIZANDO O GLIDE
+                    Glide.with(this).load(it).into(binding.imageViewEditar)
+
+            }.addOnFailureListener {
+
+                }
+
+        })
         binding.imageButtonEditar.setOnClickListener(View.OnClickListener {
             if (binding.checkBoxEditar.isChecked) {
                 if (!binding.editTextEditarAluno.toString().isEmpty() && !auxRecebeAnoEscolar.isEmpty()) {
