@@ -84,6 +84,10 @@ class AddAlunoFragment2 : Fragment() {
             }
         })
 
+        binding.imageViewAdicionarImagem.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(root).navigate(R.id.action_addAlunoFragment2_to_escolherImagemFragment)
+        })
+
         return root
     }
 

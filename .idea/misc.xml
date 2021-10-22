@@ -14,11 +14,13 @@
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/aluno.xml" value="0.22" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/config_fragment.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/editar_aluno_fragment.xml" value="0.1390625" />
+        <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/escolher_imagem_fragment.xml" value="0.12864583333333332" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/fragment_atualizando.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/fragment_atualizar.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/imagem.xml" value="0.1403985507246377" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/layout/inicio.xml" value="0.33" />
         <entry key="..\:/Users/moise/AndroidStudioProjects/EduEdu/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21" />
       </map>

@@ -108,6 +108,9 @@
             app:exitAnim="@animator/nav_default_exit_anim"
             app:popEnterAnim="@animator/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_addAlunoFragment2_to_escolherImagemFragment"
+            app:destination="@id/escolherImagemFragment" />
     </fragment>
     <fragment
         android:id="@+id/atualizando"
@@ -144,5 +147,10 @@
         android:name="com.deny.eduedu.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/escolherImagemFragment"
+        android:name="com.deny.eduedu.ui.escolherImagem.EscolherImagemFragment"
+        android:label="escolher_imagem_fragment"
+        tools:layout="@layout/escolher_imagem_fragment" />
 
 </navigation>
