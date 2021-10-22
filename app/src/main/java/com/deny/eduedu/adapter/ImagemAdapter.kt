@@ -14,7 +14,7 @@ class ImagemAdapter(var listaImagem: MutableList<Imagem>):
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(imagem: Imagem){
             var escolherImagem: ImageView = itemView.findViewById(R.id.escolherImagem)
-            escolherImagem = imagem.escolherImagem
+            escolherImagem.setImageResource(imagem.escolherImagem)
         }
     }
 

@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 
 class Imagem(
-    var escolherImagem: ImageView
+    var escolherImagem: Int
 ) {
     fun toMap() : HashMap<String, Any> {
 
