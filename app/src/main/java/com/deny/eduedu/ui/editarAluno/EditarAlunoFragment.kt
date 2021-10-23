@@ -43,6 +43,7 @@ class EditarAlunoFragment : Fragment() {
     var auxNome: String = ""
     var auxAnoEscolar: String = ""
     var recebeImagem: Int = R.drawable.avatar2
+    var recebeEdicaoImagem: Int = 0
 
     val storage = Firebase.storage
 
@@ -73,7 +74,6 @@ class EditarAlunoFragment : Fragment() {
         var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
 
         recuperarEnvio()
-        recuperarEdicao()
 
         binding.imageViewEditar.setOnClickListener( View.OnClickListener {
             Navigation.findNavController(root)
@@ -177,13 +177,6 @@ class EditarAlunoFragment : Fragment() {
         return root
     }
 
-    fun recuperarEdicao(){
-        setFragmentResultListener("requestKey6"){requestKey, bundle ->
-            val result6 = bundle.getInt("bundleKey6")
-            recebeImagem = result6
-            Glide.with(this).load(recebeImagem).into(binding.imageViewEditar)
-        }
-    }
 
     fun coroutineVoltarTelaAlunos(view: View) = runBlocking {
         launch {
@@ -207,9 +200,19 @@ class EditarAlunoFragment : Fragment() {
             val result4 = bundle.getString("bundleKey4")
             auxAnoEscolar = result4.toString()
         }
-        setFragmentResultListener("requestKey7"){requestKey, bundle ->
-            val result7 = bundle.getInt("bundleKey7")
-            recebeImagem = result7
+        setFragmentResultListener("requestKey6"){requestKey, bundle ->
+            val result6 = bundle.getInt("bundleKey6")
+            recebeEdicaoImagem = result6
+            if(recebeEdicaoImagem!=0){
+                binding.imageViewEditar.setImageResource(recebeEdicaoImagem)
+            }
+        }
+        setFragmentResultListener("requestKeyAvatar"){requestKey, bundle ->
+            val resultAvatar = bundle.getInt("bundleKeyAvatar")
+            recebeImagem = resultAvatar
+            if(recebeEdicaoImagem==0){
+                binding.imageViewEditar.setImageResource(recebeImagem)
+            }
         }
     }
 
