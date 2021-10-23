@@ -1,5 +1,6 @@
 package com.deny.eduedu.ui.editarAluno
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
@@ -31,26 +34,23 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.net.URL
+import kotlin.math.absoluteValue
 
 class EditarAlunoFragment : Fragment() {
 
     private lateinit var editarAlunoViewModel: EditarAlunoViewModel
     private var _binding: EditarAlunoFragmentBinding? = null
 
-    lateinit var firestoreDB : FirebaseFirestore
+    var firestoreDB : FirebaseFirestore = FirebaseFirestore.getInstance()
     var auxRecebeAnoEscolar: String = ""
 
     var auxNome: String = ""
     var auxAnoEscolar: String = ""
     var recebeImagem: Int = R.drawable.avatar2
-    var recebeEdicaoImagem: Int = 0
-
-    val storage = Firebase.storage
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,19 +66,7 @@ class EditarAlunoFragment : Fragment() {
         (context as AppCompatActivity).supportActionBar!!.title = "Editar aluno"
 
         buttonAnoEscolar(root)
-
-        firestoreDB = FirebaseFirestore.getInstance()
-
-        var autenticacao: FirebaseAuth = FirebaseAuth.getInstance()
-        var id: String = Base64Custom.codificarBase64(autenticacao.currentUser?.getEmail())
-        var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
-
         recuperarEnvio()
-
-        binding.imageViewEditar.setOnClickListener( View.OnClickListener {
-            Navigation.findNavController(root)
-                .navigate(R.id.action_editarAlunoFragment_to_editarImagemFragment)
-        })
 
         binding.imageButtonEditar.setOnClickListener(View.OnClickListener {
             if (binding.checkBoxEditar.isChecked) {
@@ -191,6 +179,7 @@ class EditarAlunoFragment : Fragment() {
         _binding = null
     }
 
+
     fun recuperarEnvio(){
         setFragmentResultListener("requestKey3"){requestKey, bundle ->
             val result3 = bundle.getString("bundleKey3")
@@ -200,19 +189,10 @@ class EditarAlunoFragment : Fragment() {
             val result4 = bundle.getString("bundleKey4")
             auxAnoEscolar = result4.toString()
         }
-        setFragmentResultListener("requestKey6"){requestKey, bundle ->
-            val result6 = bundle.getInt("bundleKey6")
-            recebeEdicaoImagem = result6
-            if(recebeEdicaoImagem!=0){
-                binding.imageViewEditar.setImageResource(recebeEdicaoImagem)
-            }
-        }
         setFragmentResultListener("requestKeyAvatar"){requestKey, bundle ->
             val resultAvatar = bundle.getInt("bundleKeyAvatar")
             recebeImagem = resultAvatar
-            if(recebeEdicaoImagem==0){
-                binding.imageViewEditar.setImageResource(recebeImagem)
-            }
+            binding.imageViewEditar.setImageResource(recebeImagem)
         }
     }
 

@@ -64,7 +64,7 @@ class EditarImagemFragment : Fragment() {
                 override fun onItemClick(view: View, position: Int) {
 
                     val result6 = listaImagem[position].escolherImagem
-                    var bundle: Bundle = Bundle()
+                    var bundle2: Bundle = Bundle()
                     // Use the Kotlin extension in the fragment-ktx artifact
                     setFragmentResult("requestKey6", bundleOf("bundleKey6" to result6))
 
