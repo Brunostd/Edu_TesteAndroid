@@ -141,6 +141,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_editarAlunoFragment_to_editarImagemFragment"
+            app:destination="@id/editarImagemFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
@@ -155,6 +158,15 @@
         <action
             android:id="@+id/action_escolherImagemFragment_to_addAlunoFragment2"
             app:destination="@id/addAlunoFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarImagemFragment"
+        android:name="com.deny.eduedu.ui.editarImagem.EditarImagemFragment"
+        android:label="editar_imagem_fragment"
+        tools:layout="@layout/editar_imagem_fragment" >
+        <action
+            android:id="@+id/action_editarImagemFragment_to_editarAlunoFragment"
+            app:destination="@id/editarAlunoFragment" />
     </fragment>
 
 </navigation>

@@ -42,6 +42,7 @@ class EditarAlunoFragment : Fragment() {
 
     var auxNome: String = ""
     var auxAnoEscolar: String = ""
+    var recebeImagem: Int = R.drawable.avatar2
 
     val storage = Firebase.storage
 
@@ -72,23 +73,13 @@ class EditarAlunoFragment : Fragment() {
         var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
 
         recuperarEnvio()
+        recuperarEdicao()
 
         binding.imageViewEditar.setOnClickListener( View.OnClickListener {
-            val storageRef = storage.reference
-            val avatarRef = storageRef.child("images/zig.png")
-                .downloadUrl.addOnSuccessListener {
-                    /*UTILIZANDO O PICASSO PARA ALTERAÇÃO DA IMAGEM
-                Picasso.get().load(it).into(binding.imageViewEditar)
-                     */
-
-                    // E AGORA UTILIZANDO O GLIDE
-                    Glide.with(this).load(it).into(binding.imageViewEditar)
-
-            }.addOnFailureListener {
-
-                }
-
+            Navigation.findNavController(root)
+                .navigate(R.id.action_editarAlunoFragment_to_editarImagemFragment)
         })
+
         binding.imageButtonEditar.setOnClickListener(View.OnClickListener {
             if (binding.checkBoxEditar.isChecked) {
                 if (!binding.editTextEditarAluno.toString().isEmpty() && !auxRecebeAnoEscolar.isEmpty()) {
@@ -171,6 +162,7 @@ class EditarAlunoFragment : Fragment() {
                             }
                         })
 
+
                     //Aqui se tudo deu certo o coroutine vai fazer um navigation para a tela alunos
                     //Com a mesma tela atualizada
                     coroutineVoltarTelaAlunos(root)
@@ -183,6 +175,14 @@ class EditarAlunoFragment : Fragment() {
         })
 
         return root
+    }
+
+    fun recuperarEdicao(){
+        setFragmentResultListener("requestKey6"){requestKey, bundle ->
+            val result6 = bundle.getInt("bundleKey6")
+            recebeImagem = result6
+            Glide.with(this).load(recebeImagem).into(binding.imageViewEditar)
+        }
     }
 
     fun coroutineVoltarTelaAlunos(view: View) = runBlocking {
@@ -206,6 +206,10 @@ class EditarAlunoFragment : Fragment() {
         setFragmentResultListener("requestKey4"){requestKey, bundle ->
             val result4 = bundle.getString("bundleKey4")
             auxAnoEscolar = result4.toString()
+        }
+        setFragmentResultListener("requestKey7"){requestKey, bundle ->
+            val result7 = bundle.getInt("bundleKey7")
+            recebeImagem = result7
         }
     }
 

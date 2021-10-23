@@ -72,10 +72,12 @@ class DashboardFragment : Fragment() {
 
                     val result3 = listAlunos[position].nome
                     val result4 = listAlunos[position].anoEscolar
+                    val resultAvatar = listAlunos[position].avatar
                     var bundle2: Bundle = Bundle()
                     // Use the Kotlin extension in the fragment-ktx artifact
                     setFragmentResult("requestKey3", bundleOf("bundleKey3" to result3))
                     setFragmentResult("requestKey4", bundleOf("bundleKey4" to result4))
+                    setFragmentResult("requestKey7", bundleOf("bundleKeyAvatar" to resultAvatar,))
 
                     listAlunos.set(position, aluno)
                     alunosAdapter2.notifyItemChanged(position)
