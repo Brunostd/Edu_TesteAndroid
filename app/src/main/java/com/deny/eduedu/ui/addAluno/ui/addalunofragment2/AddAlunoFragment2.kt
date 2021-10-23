@@ -1,23 +1,15 @@
 package com.deny.eduedu.ui.addAluno.ui.addalunofragment2
 
-import android.app.ActionBar
+import android.icu.number.IntegerWidth
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.appcompat.widget.ActionBarContainer
-import androidx.appcompat.widget.ActionBarContextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.deny.eduedu.R
-import com.deny.eduedu.TelaDoisActivity
 import com.deny.eduedu.databinding.AddAlunoFragment2FragmentBinding
 import com.deny.eduedu.model.Aluno
 import com.deny.eduedu.helper.Base64Custom
@@ -26,15 +18,18 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.appcompat.app.AppCompatActivity
-
-
+import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.setFragmentResultListener
+import com.bumptech.glide.Glide
+import com.google.common.primitives.UnsignedBytes.toInt
 
 
 class AddAlunoFragment2 : Fragment() {
 
     private lateinit var viewModel: AddAlunoFragment2ViewModel
-    lateinit var firestoreDB : FirebaseFirestore
+    var firestoreDB : FirebaseFirestore = FirebaseFirestore.getInstance()
     var auxRecebeAnoEscolar: String = ""
+    var recebeImagem: Int = R.drawable.avatar6
 
     private var _binding: AddAlunoFragment2FragmentBinding? = null
 
@@ -59,11 +54,12 @@ class AddAlunoFragment2 : Fragment() {
 
         buttonAnoEscolar(root)
 
-        firestoreDB = FirebaseFirestore.getInstance()
 
         var autenticacao: FirebaseAuth = FirebaseAuth.getInstance()
         var id: String = Base64Custom.codificarBase64(autenticacao.currentUser?.getEmail())
         var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+
+        recuperarEdicao()
 
         binding.imageButtonCadastrar.setOnClickListener(View.OnClickListener {
             if (binding.checkBoxCadastrar.isChecked) {
@@ -71,7 +67,8 @@ class AddAlunoFragment2 : Fragment() {
                     var note: Aluno = Aluno(
                         id = id,
                         nome = binding.editTextCadastrarAluno.text.toString(),
-                        anoEscolar = auxRecebeAnoEscolar
+                        anoEscolar = auxRecebeAnoEscolar,
+                        avatar = recebeImagem
                     )
                     firestoreDB.collection("cadastro").add(note.toMap())
                     Toast.makeText(root.context, "Aluno cadastrado com sucesso", Toast.LENGTH_LONG).show()
@@ -84,11 +81,23 @@ class AddAlunoFragment2 : Fragment() {
             }
         })
 
+        binding.imageButtonMudarAvatar.setOnClickListener(View.OnClickListener {
+            Navigation.findNavController(root).navigate(R.id.action_addAlunoFragment2_to_escolherImagemFragment)
+        })
+
         binding.imageViewAdicionarImagem.setOnClickListener(View.OnClickListener {
             Navigation.findNavController(root).navigate(R.id.action_addAlunoFragment2_to_escolherImagemFragment)
         })
 
         return root
+    }
+
+    fun recuperarEdicao(){
+        setFragmentResultListener("requestKey5"){requestKey, bundle ->
+            val result5 = bundle.getInt("bundleKey5")
+            recebeImagem = result5
+            Glide.with(this).load(recebeImagem).into(binding.imageViewAdicionarImagem)
+        }
     }
 
     override fun onDestroyView() {

@@ -35,6 +35,7 @@ class AlunosAdapter2(var listaAluno: MutableList<Aluno>) :
 
             nome.setText(aluno.nome.toString())
             anoEscolar.setText(aluno.anoEscolar.toString())
+            imagem.setImageResource(aluno.avatar)
 
         }
     }

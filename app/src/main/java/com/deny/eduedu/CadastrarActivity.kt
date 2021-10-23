@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.deny.eduedu.helper.Base64Custom
 import com.deny.eduedu.model.UsuarioLogin
@@ -23,7 +24,7 @@ class CadastrarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar)
 
-        var buttonCadastar: Button = findViewById(R.id.buttonCadastrarUsuario)
+        var buttonCadastar: ImageButton = findViewById(R.id.buttonCadastrarUsuario)
         var textRecebeEmail: EditText = findViewById(R.id.editTextRecebeEmail)
         var textRecebeSenha: EditText = findViewById(R.id.editTextRecebeSenha)
 

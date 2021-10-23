@@ -9,12 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.get
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.deny.eduedu.R
 import com.deny.eduedu.adapter.ImagemAdapter
 import com.deny.eduedu.databinding.EscolherImagemFragmentBinding
+import com.deny.eduedu.helper.RecyclerItemClickListener
 import com.deny.eduedu.model.Imagem
 import com.deny.eduedu.ui.notifications.NotificationsViewModel
 import com.google.firebase.ktx.Firebase
@@ -53,6 +58,27 @@ class EscolherImagemFragment : Fragment() {
         binding.recyclerViewImagem.adapter = ImagemAdapter(listaImagem)
         binding.recyclerViewImagem.layoutManager = GridLayoutManager(context, 2)
 
+        var recyclerView: RecyclerView = binding.recyclerViewImagem
+
+        recyclerView.addOnItemTouchListener(
+            RecyclerItemClickListener(context, recyclerView, object :
+                RecyclerItemClickListener.OnItemClickListener {
+                override fun onItemClick(view: View, position: Int) {
+
+                    val result5 = listaImagem[position].escolherImagem
+                    var bundle: Bundle = Bundle()
+                    // Use the Kotlin extension in the fragment-ktx artifact
+                    setFragmentResult("requestKey5", bundleOf("bundleKey5" to result5))
+
+                    Navigation.findNavController(root).navigate(R.id.action_escolherImagemFragment_to_addAlunoFragment2)
+
+                }
+
+                override fun onLongItemClick(view: View, position: Int) {
+
+                }
+            })
+        )
         return root
     }
 

@@ -1,41 +1,32 @@
 package com.deny.eduedu.ui.dashboard
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.deny.eduedu.R
-import com.deny.eduedu.TelaDoisActivity
 import com.deny.eduedu.adapter.AlunosAdapter2
 import com.deny.eduedu.databinding.FragmentDashboardBinding
 import com.deny.eduedu.helper.Base64Custom
 import com.deny.eduedu.helper.RecyclerItemClickListener
 import com.deny.eduedu.helper.RecyclerItemClickListener.OnItemClickListener
 import com.deny.eduedu.model.Aluno
-import com.deny.eduedu.ui.editarAluno.EditarAlunoFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import android.os.Build
-import androidx.fragment.app.FragmentTransaction
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.runInterruptible
 
 
 class DashboardFragment : Fragment() {
@@ -124,7 +115,7 @@ class DashboardFragment : Fragment() {
                 if (note!!.id.equals(id)) {
                     note!!.id = dataObject.id
 
-                    var p: Aluno = Aluno(nome = note!!.nome, anoEscolar = note!!.anoEscolar)
+                    var p: Aluno = Aluno(nome = note!!.nome, anoEscolar = note!!.anoEscolar, avatar = note!!.avatar)
                     this.listAlunos.add(p)
 
                     binding.recyclerAluno.adapter = AlunosAdapter2(listAlunos)
