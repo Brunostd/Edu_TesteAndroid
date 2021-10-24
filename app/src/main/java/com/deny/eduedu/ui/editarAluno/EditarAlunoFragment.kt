@@ -1,6 +1,7 @@
 package com.deny.eduedu.ui.editarAluno
 
 import android.content.Context
+import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -50,6 +51,7 @@ class EditarAlunoFragment : Fragment() {
     var auxNome: String = ""
     var auxAnoEscolar: String = ""
     var recebeImagem: Int = R.drawable.avatar2
+    var auxRecebeImagem: Int = R.drawable.avatar2
     private val argumentos by navArgs<EditarAlunoFragmentArgs>()
 
 
@@ -73,12 +75,6 @@ class EditarAlunoFragment : Fragment() {
         buttonAnoEscolar(root)
         recuperarEnvio()
 
-        var imagemViewEditar: ImageView = binding.imageViewEditar
-
-        binding.imageViewEditar.setOnClickListener(View.OnClickListener {
-            Navigation.findNavController(root)
-                .navigate(R.id.action_editarAlunoFragment_to_editarImagemFragment)
-        })
 
         binding.imageButtonEditar.setOnClickListener(View.OnClickListener {
             if (binding.checkBoxEditar.isChecked) {
@@ -160,8 +156,6 @@ class EditarAlunoFragment : Fragment() {
                                     .show()
                             }
                         })
-
-
                     //Aqui se tudo deu certo o coroutine vai fazer um navigation para a tela alunos
                     //Com a mesma tela atualizada
                     coroutineVoltarTelaAlunos(root)
@@ -179,7 +173,8 @@ class EditarAlunoFragment : Fragment() {
 
     fun coroutineVoltarTelaAlunos(view: View) = runBlocking {
         launch {
-            delay(3000L)
+            delay(2000L)
+
             Navigation.findNavController(view)
                 .navigate(R.id.action_editarAlunoFragment_to_navigation_dashboard)
         }

@@ -69,7 +69,7 @@ class EditarImagemFragment : Fragment() {
 
                     val result6 = listaImagem[position].escolherImagem
                     enviarImagem = result6
-                    var bundle2: Bundle = Bundle()
+                    var bundle: Bundle = Bundle()
                     // Use the Kotlin extension in the fragment-ktx artifact
                     setFragmentResult("requestKey6", bundleOf("bundleKey6" to result6))
 
