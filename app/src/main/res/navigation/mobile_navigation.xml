@@ -144,6 +144,9 @@
         <action
             android:id="@+id/action_editarAlunoFragment_to_editarImagemFragment"
             app:destination="@id/editarImagemFragment" />
+        <argument
+            android:name="recebeEdicaoImagem"
+            app:argType="integer"/>
     </fragment>
     <activity
         android:id="@+id/mainActivity"

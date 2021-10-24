@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.deny.eduedu.R
@@ -19,6 +20,7 @@ import com.deny.eduedu.databinding.EditarImagemFragmentBinding
 import com.deny.eduedu.databinding.EscolherImagemFragmentBinding
 import com.deny.eduedu.helper.RecyclerItemClickListener
 import com.deny.eduedu.model.Imagem
+import com.deny.eduedu.ui.editarAluno.EditarAlunoFragment
 import com.deny.eduedu.ui.escolherImagem.EscolherImagemViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -29,6 +31,7 @@ class EditarImagemFragment : Fragment() {
     private var _binding: EditarImagemFragmentBinding? = null
     private var listaImagem: MutableList<Imagem> = ArrayList<Imagem>()
     lateinit var imagem: Imagem
+    var enviarImagem: Int = 0
 
     val storage = Firebase.storage
 
@@ -58,17 +61,20 @@ class EditarImagemFragment : Fragment() {
 
         var recyclerView: RecyclerView = binding.recyclerViewEditarImagem
 
+
         recyclerView.addOnItemTouchListener(
             RecyclerItemClickListener(context, recyclerView, object :
                 RecyclerItemClickListener.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int) {
 
                     val result6 = listaImagem[position].escolherImagem
+                    enviarImagem = result6
                     var bundle2: Bundle = Bundle()
                     // Use the Kotlin extension in the fragment-ktx artifact
                     setFragmentResult("requestKey6", bundleOf("bundleKey6" to result6))
 
-                    Navigation.findNavController(root).navigate(R.id.action_editarImagemFragment_to_editarAlunoFragment)
+                    val action = EditarImagemFragmentDirections.actionEditarImagemFragmentToEditarAlunoFragment(enviarImagem)
+                    findNavController().navigate(action)
 
                 }
 
@@ -77,6 +83,8 @@ class EditarImagemFragment : Fragment() {
                 }
             })
         )
+
+
         return root
     }
 
